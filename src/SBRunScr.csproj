@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>resources/main.ico</ApplicationIcon>
-    <OutputPath>../release</OutputPath>
+    <OutputPath>../bin</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
@@ -15,6 +15,9 @@
   <ItemGroup>
     <EmbeddedResource Include="resources/main.ico"/>
     <EmbeddedResource Include="resources/updateWallpaper.ico"/>
+    <EmbeddedResource Include="resources/addList.ico"/>
+    <EmbeddedResource Include="resources/deleteList.ico"/>
+    <EmbeddedResource Include="resources/editList.ico"/>
   </ItemGroup>
-  
+
 </Project>
