@@ -5,6 +5,7 @@
 1. add extension "C# Dev Kit"
 1. add extension ".NET Install Tool"
 1. add extension "IntelliCode for C# Dev Kit" (optional)
+1. add extension "NuGet Gallery"
 
 # Project creation
 
@@ -16,6 +17,9 @@
 1. dotnet sln add test
 1. change file test/SBRunScr.Test.csproj: TargetFramework=net9.0-windows
 1. dotnet add test reference src
+1. add NuGet 'Sqlite'
+   1. \>Nuget: Focus on NuGet View
+   1. find and add 'Microsoft.Data.Sqlite'
 
 # Description
 

@@ -76,16 +76,16 @@ partial class FilesPanel
     {
         Panel result = new();
         result.Dock = DockStyle.Fill;
-        result.Controls.Add(CreateAddListButton("deleteList.ico", new EventHandler(DeleteList)));
-        result.Controls.Add(CreateAddListButton("editList.ico", new EventHandler(EditList)));
-        result.Controls.Add(CreateAddListButton("addList.ico", new EventHandler(AddList)));
+        result.Controls.Add(CreateAddListButton("deleteList", new EventHandler(DeleteList)));
+        result.Controls.Add(CreateAddListButton("editList", new EventHandler(EditList)));
+        result.Controls.Add(CreateAddListButton("addList", new EventHandler(AddList)));
         return result;
     }
 
     private Control CreateAddListButton(string name, EventHandler handler)
     {
         Button result = new();
-        result.Image = Resources.GetImage(name);
+        result.Image = Resources.GetIconAsImage(name);
         result.Size = new Size(0, 40);
         result.Dock = DockStyle.Top;
         result.Click += handler;

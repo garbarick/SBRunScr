@@ -15,20 +15,27 @@ public class Resources
         }
     }
 
-    public static Icon? GetIcon(string name)
+    public static Icon GetIcon(string name)
     {
-        Stream stream = GetStream(name)?? throw new InvalidDataException($"Unknown resoucre {name}");
+        using Stream stream = GetStream("ico", name) ?? throw new InvalidDataException($"Unknown resoucre {name}");
         return new Icon(stream);
     }
 
-    public static Image? GetImage(string name)
+    public static Image GetIconAsImage(string name)
     {
-        return GetIcon(name)?.ToBitmap();
+        return GetIcon(name).ToBitmap();
     }
 
-    public static Stream? GetStream(string name)
+    public static string GetSql(string name)
     {
-        string path = $"{typeof(Resources).Namespace}.{name}";
+        using Stream stream = GetStream("sql", name) ?? throw new InvalidDataException($"Unknown resoucre {name}");
+        using StreamReader reader = new(stream);
+        return reader.ReadToEnd();
+    }
+
+    public static Stream? GetStream(string type, string name)
+    {
+        string path = $"{typeof(Resources).Namespace}.{type}.{name}.{type}";
         return typeof(Resources).Assembly.GetManifestResourceStream(path);
     }
 }

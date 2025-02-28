@@ -1,9 +1,13 @@
 using SBRunScr.view.settings.tree;
+using SBRunScr.db;
+using SBRunScr.form;
 
 namespace SBRunScr.view.settings.files;
 
 public partial class FilesPanel : SettingsPanel
 {
+    private readonly DataBase dataBase = new();
+
     public FilesPanel()
     {
         InitializeComponent();
@@ -11,7 +15,11 @@ public partial class FilesPanel : SettingsPanel
 
     private void AddList(object sender, EventArgs e)
     {
-        Console.WriteLine("AddList");
+        InputBox dialog = new("New list", "Name", "");
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            Console.WriteLine($"name: {dialog.Result()}");
+        }
     }
 
     private void EditList(object sender, EventArgs e)

@@ -6,18 +6,25 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>resources/main.ico</ApplicationIcon>
+    <ApplicationIcon>resources/ico/main.ico</ApplicationIcon>
     <OutputPath>../bin</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="resources/main.ico"/>
-    <EmbeddedResource Include="resources/updateWallpaper.ico"/>
-    <EmbeddedResource Include="resources/addList.ico"/>
-    <EmbeddedResource Include="resources/deleteList.ico"/>
-    <EmbeddedResource Include="resources/editList.ico"/>
+    <EmbeddedResource Include="resources/ico/main.ico"/>
+    <EmbeddedResource Include="resources/ico/updateWallpaper.ico"/>
+    <EmbeddedResource Include="resources/ico/addList.ico"/>
+    <EmbeddedResource Include="resources/ico/deleteList.ico"/>
+    <EmbeddedResource Include="resources/ico/editList.ico"/>
+    <EmbeddedResource Include="resources/sql/createTableLists.sql"/>
+    <EmbeddedResource Include="resources/sql/createTableFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/createTableSettings.sql"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0-preview.1.25081.1"/>
   </ItemGroup>
 
 </Project>

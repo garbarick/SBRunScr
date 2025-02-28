@@ -28,7 +28,7 @@ partial class MainFrom
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = MinimumSize = new Size(800, 500);
         Text = "SBRunScr";
-        Icon = Resources.GetIcon("main.ico");
+        Icon = Resources.GetIcon("main");
 
         SettingsPanel = CreateSettingsPanel();
         MainSplitter = CreateMainSpliter();
@@ -88,7 +88,7 @@ partial class MainFrom
     private Control CreateUpdateButton()
     {
         Button result = new();
-        result.Image = Resources.GetImage("updateWallpaper.ico");
+        result.Image = Resources.GetIconAsImage("updateWallpaper");
         result.Dock = DockStyle.Left;
         result.Click += new EventHandler(UpdateWallpaper);
         return result;
