@@ -16,9 +16,9 @@ public partial class FilesPanel : SettingsPanel
     private void AddList(object sender, EventArgs e)
     {
         InputBox dialog = new("New list", "Name", "");
-        if (dialog.ShowDialog() == DialogResult.OK)
+        if (dialog.ShowDialog() == DialogResult.OK && dataBase.AddList(dialog.Result()))
         {
-            Console.WriteLine($"name: {dialog.Result()}");
+            Console.WriteLine($"added {dialog.Result()}");
         }
     }
 

@@ -10,7 +10,10 @@
     <OutputPath>../bin</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-  </PropertyGroup>
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <CopyLocal>false</CopyLocal>
+   </PropertyGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="resources/ico/main.ico"/>
@@ -21,10 +24,18 @@
     <EmbeddedResource Include="resources/sql/createTableLists.sql"/>
     <EmbeddedResource Include="resources/sql/createTableFiles.sql"/>
     <EmbeddedResource Include="resources/sql/createTableSettings.sql"/>
+    <EmbeddedResource Include="resources/sql/addList.sql"/>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0-preview.1.25081.1"/>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+       <DllFiles Include="../bin/*.dll" Exclude="../bin/$(AssemblyName).dll"/>
+    </ItemGroup>
+    <Move SourceFiles="@(DllFiles)" DestinationFolder="$(TargetDir)libs"/>
+  </Target>
 
 </Project>

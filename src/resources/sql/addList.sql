@@ -1,0 +1,1 @@
+insert into lists(name) values(@name)
