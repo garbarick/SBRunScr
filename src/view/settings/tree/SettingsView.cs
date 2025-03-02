@@ -10,7 +10,6 @@ public partial class SettingsView : TreeView
         InitializeComponent();
     }
 
-
     private void BeforeCollapse_(object sender, TreeViewCancelEventArgs e)
     {
         e.Cancel = true;
