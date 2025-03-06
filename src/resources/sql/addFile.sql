@@ -1,0 +1,1 @@
+insert into files(path, list_id) values(@path, @list_id)

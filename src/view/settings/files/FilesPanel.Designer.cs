@@ -8,6 +8,7 @@ partial class FilesPanel
     private ListView Lists;
     private ListView Files;
     private PictureBox Image;
+    private Panel FilesButtons;
 
     private void InitializeComponent()
     {
@@ -102,12 +103,12 @@ partial class FilesPanel
         result.RowCount = 1;
         result.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50));
         result.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-        result.Controls.Add(CreateFilesButtons());
+        result.Controls.Add(FilesButtons = CreateFilesButtons());
         result.Controls.Add(Files);
         return result;
     }
 
-    private Control CreateFilesButtons()
+    private Panel CreateFilesButtons()
     {
         Panel result = new();
         result.Dock = DockStyle.Fill;

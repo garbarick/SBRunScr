@@ -14,6 +14,7 @@ public class ListItemView : ListViewItem
 
     public void Update()
     {
+        SubItems.Clear();
         Text = Item.Name;
         SubItems.Add(Item.Count.ToString());
     }

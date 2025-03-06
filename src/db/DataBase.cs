@@ -2,6 +2,7 @@ using SBRunScr.user;
 using Microsoft.Data.Sqlite;
 using SBRunScr.resources;
 using SBRunScr.item;
+using SBRunScr.file;
 
 namespace SBRunScr.db;
 
@@ -49,7 +50,7 @@ public class DataBase
 
     public List<ListItem> GetLists()
     {
-        List<ListItem> result = new();
+        List<ListItem> result = [];
         using SqliteConnection connection = Connect(true);
         using SqliteCommand command = new(Resources.GetSql("getLists"), connection);
         using SqliteDataReader reader = command.ExecuteReader();
@@ -80,6 +81,64 @@ public class DataBase
         using SqliteConnection connection = Connect();
         using SqliteCommand command = new(Resources.GetSql("deleteList"), connection);
         command.Parameters.Add(new SqliteParameter("@id", id));
+        return command.ExecuteNonQuery() > 0;
+    }
+
+    public bool AddFolder(string path, long listId)
+    {
+        List<string> files = FilesUtils.GetFiles(path);
+        if (files.Count == 0)
+        {
+            return false;
+        }
+        using SqliteConnection connection = Connect();
+        using SqliteTransaction transaction = connection.BeginTransaction();
+        using SqliteCommand command = new(Resources.GetSql("addFile"), connection, transaction);
+        foreach (string file in files)
+        {
+            command.Parameters.Clear();
+            command.Parameters.Add(new SqliteParameter("@path", file));
+            command.Parameters.Add(new SqliteParameter("@list_id", listId));
+            command.ExecuteNonQuery();
+        }
+        transaction.Commit();
+        return true;
+    }
+
+    public List<FileItem> GetFiles(long listId)
+    {
+        List<FileItem> result = [];
+        using SqliteConnection connection = Connect(true);
+        using SqliteCommand command = new(Resources.GetSql("getFiles"), connection);
+        command.Parameters.Add(new SqliteParameter("@list_id", listId));
+        using SqliteDataReader reader = command.ExecuteReader();
+        if (reader.HasRows)
+        {
+            while (reader.Read())
+            {
+                long id = reader.GetInt64(0);
+                string path = reader.GetString(1);
+                int type = reader.GetInt32(2);
+                result.Add(new FileItem(id, path, type));
+            }
+        }
+        return result;
+    }
+
+    public bool ClearFiles(long listId)
+    {
+        using SqliteConnection connection = Connect();
+        using SqliteCommand command = new(Resources.GetSql("clearFiles"), connection);
+        command.Parameters.Add(new SqliteParameter("@list_id", listId));
+        return command.ExecuteNonQuery() > 0;
+    }
+
+    public bool ExcludeFolder(string path, long listId)
+    {
+        using SqliteConnection connection = Connect();
+        using SqliteCommand command = new(Resources.GetSql("excludeFolder"), connection);
+        command.Parameters.Add(new SqliteParameter("@path", path));
+        command.Parameters.Add(new SqliteParameter("@list_id", listId));
         return command.ExecuteNonQuery() > 0;
     }
 }

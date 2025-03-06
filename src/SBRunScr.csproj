@@ -32,6 +32,10 @@
     <EmbeddedResource Include="resources/sql/getLists.sql"/>
     <EmbeddedResource Include="resources/sql/renameList.sql"/>
     <EmbeddedResource Include="resources/sql/deleteList.sql"/>
+    <EmbeddedResource Include="resources/sql/addFile.sql"/>
+    <EmbeddedResource Include="resources/sql/getFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/clearFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/excludeFolder.sql"/>
   </ItemGroup>
 
   <ItemGroup>
