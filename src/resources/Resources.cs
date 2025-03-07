@@ -26,6 +26,11 @@ public class Resources
         return GetIcon(name).ToBitmap();
     }
 
+    public static Image GetIconAsImage(string name, Size size)
+    {
+        return new Bitmap(GetIcon(name).ToBitmap(), size);
+    }
+
     public static string GetSql(string name)
     {
         using Stream stream = GetStream("sql", name) ?? throw new InvalidDataException($"Unknown resoucre {name}");

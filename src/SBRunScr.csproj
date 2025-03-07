@@ -36,6 +36,8 @@
     <EmbeddedResource Include="resources/sql/getFiles.sql"/>
     <EmbeddedResource Include="resources/sql/clearFiles.sql"/>
     <EmbeddedResource Include="resources/sql/excludeFolder.sql"/>
+    <EmbeddedResource Include="resources/sql/getValue.sql"/>
+    <EmbeddedResource Include="resources/sql/setValue.sql"/>
   </ItemGroup>
 
   <ItemGroup>

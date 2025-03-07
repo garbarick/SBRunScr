@@ -141,4 +141,51 @@ public class DataBase
         command.Parameters.Add(new SqliteParameter("@list_id", listId));
         return command.ExecuteNonQuery() > 0;
     }
+
+    public int GetIntValue(string name, int defaultValue)
+    {
+        return Convert.ToInt32(GetStringValue(name, defaultValue.ToString()));
+    }
+
+    public long GetLongValue(string name, long defaultValue)
+    {
+        return Convert.ToInt64(GetStringValue(name, defaultValue.ToString()));
+    }
+
+    public bool GetBoolValue(string name, bool defaultValue)
+    {
+        return Convert.ToBoolean(GetStringValue(name, defaultValue.ToString()));
+    }
+
+    public string GetStringValue(string name, string defaultValue)
+    {
+        using SqliteConnection connection = Connect(true);
+        using SqliteCommand command = new(Resources.GetSql("getValue"), connection);
+        command.Parameters.Add(new SqliteParameter("@name", name));
+        return command.ExecuteScalar()?.ToString() ?? defaultValue;
+    }
+
+    public void SetIntValue(string name, int value)
+    {
+        SetStringValue(name, value.ToString());
+    }
+
+    public void SetLongValue(string name, long value)
+    {
+        SetStringValue(name, value.ToString());
+    }
+
+    public void SetBoolValue(string name, bool value)
+    {
+        SetStringValue(name, value.ToString());
+    }
+
+    public void SetStringValue(string name, string value)
+    {
+        using SqliteConnection connection = Connect();
+        using SqliteCommand command = new(Resources.GetSql("setValue"), connection);
+        command.Parameters.Add(new SqliteParameter("@name", name));
+        command.Parameters.Add(new SqliteParameter("@value", value));
+        command.ExecuteNonQuery();
+    }
 }

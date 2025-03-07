@@ -1,4 +1,3 @@
 create table if not exists settings(
-    id integer primary key autoincrement not null,
-    name text not null,
+    name text primary key not null,
     value text)

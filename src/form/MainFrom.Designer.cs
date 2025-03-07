@@ -20,8 +20,6 @@ partial class MainFrom
         base.Dispose(disposing);
     }
 
-    #region Windows Form Designer generated code
-
     private void InitializeComponent()
     {
         Components = new System.ComponentModel.Container();
@@ -71,7 +69,7 @@ partial class MainFrom
         result.ColumnCount = 1;
         result.RowCount = 2;
         result.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        result.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
+        result.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
         result.Controls.Add(SettingsPanel);
         result.Controls.Add(CreateButtonsPanel());
         return result;
@@ -88,11 +86,9 @@ partial class MainFrom
     private Control CreateUpdateButton()
     {
         Button result = new();
-        result.Image = Resources.GetIconAsImage("updateWallpaper");
+        result.Image = Resources.GetIconAsImage("updateWallpaper", new Size(48, 26));
         result.Dock = DockStyle.Left;
         result.Click += new EventHandler(UpdateWallpaper);
         return result;
     }
-
-    #endregion
 }

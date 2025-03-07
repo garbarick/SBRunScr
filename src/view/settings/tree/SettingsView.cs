@@ -25,6 +25,7 @@ public partial class SettingsView : TreeView
         {
             current.Control.Visible = true;
             current.Control.Size = new(SettingsPanel.Width - 10, SettingsPanel.Height);
+            current.Control.OnShow();
         }
     }
 }

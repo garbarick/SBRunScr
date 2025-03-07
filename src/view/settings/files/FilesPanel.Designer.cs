@@ -7,7 +7,7 @@ partial class FilesPanel
 {
     private ListView Lists;
     private ListView Files;
-    private PictureBox Image;
+    private PictureBox PreviewImage;
     private Panel FilesButtons;
 
     private void InitializeComponent()
@@ -17,7 +17,7 @@ partial class FilesPanel
 
         Lists = CreateListsView();
         Files = CreateFilesView();
-        Image = CreateImageView();
+        PreviewImage = CreateImageView();
 
         Controls.Add(CreateMainPanel());
     }
@@ -30,8 +30,9 @@ partial class FilesPanel
         result.FullRowSelect = true;
         result.GridLines = true;
         result.SelectedIndexChanged += new EventHandler(ListsSelectedChanged);
+        result.ClientSizeChanged += new EventHandler(ListViewClientSizeChanged);
 
-        result.Columns.Add("List", 140);
+        result.Columns.Add("List");
         result.Columns.Add("Count", 80);
 
         return result;
@@ -44,12 +45,25 @@ partial class FilesPanel
         result.View = View.Details;
         result.FullRowSelect = true;
         result.GridLines = true;
+        result.SelectedIndexChanged += new EventHandler(FilesSelectedChanged);
+        result.ClientSizeChanged += new EventHandler(ListViewClientSizeChanged);
 
-        result.Columns.Add("Path", 340);
-        result.Columns.Add("Type", 80);
-        result.Columns.Add("Name", 100);
+        result.Columns.Add("Path");
+        result.Columns.Add("Type", 50);
+        result.Columns.Add("Name", 230);
 
         return result;
+    }
+
+    private void ListViewClientSizeChanged(object sender, EventArgs args)
+    {
+        ListView list = (ListView) sender;
+        int width = list.Width - 30;
+        for (int i = 1; i < list.Columns.Count; i++)
+        {
+            width -= list.Columns[i].Width;
+        }
+        list.Columns[0].Width = width;
     }
 
     private PictureBox CreateImageView()
@@ -57,6 +71,7 @@ partial class FilesPanel
         PictureBox result = new();
         result.Dock = DockStyle.Fill;
         result.BorderStyle = BorderStyle.FixedSingle;
+        result.SizeMode = PictureBoxSizeMode.StretchImage;
         return result;
     }
 
@@ -71,7 +86,7 @@ partial class FilesPanel
         result.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
         result.Controls.Add(CreateListsButtons());
         result.Controls.Add(Lists);
-        result.Controls.Add(Image);
+        result.Controls.Add(PreviewImage);
         return result;
     }
 
@@ -88,7 +103,7 @@ partial class FilesPanel
     private Control CreateButton(string name, EventHandler handler)
     {
         Button result = new();
-        result.Image = Resources.GetIconAsImage(name);
+        result.Image = Resources.GetIconAsImage(name, new Size(24, 24));
         result.Size = new Size(0, 40);
         result.Dock = DockStyle.Top;
         result.Click += handler;
