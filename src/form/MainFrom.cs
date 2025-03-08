@@ -1,7 +1,12 @@
+using SBRunScr.db;
+using SBRunScr.wall;
+
 namespace SBRunScr.form;
 
 public partial class MainFrom : Form
 {
+    private readonly DataBase dataBase = new();
+
     public MainFrom()
     {
         InitializeComponent();
@@ -9,6 +14,10 @@ public partial class MainFrom : Form
 
     private void UpdateWallpaper(object sender, EventArgs e)
     {
-        Console.WriteLine("UpdateWallpaper");
+        string? filePath = dataBase.GetCurrentFile();
+        if (filePath != null)
+        {
+            new WallPaper().Set(filePath);
+        }
     }
 }

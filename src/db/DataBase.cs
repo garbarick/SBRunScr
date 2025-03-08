@@ -21,7 +21,7 @@ public class DataBase
 
     private SqliteConnection Connect(bool readOnly = false)
     {
-        string file = new User().UserFile();
+        string file = new User().UserFile("settings.db");
         string mode = readOnly ? "Mode=ReadOnly;" : "";
         SqliteConnection result = new($"Data Source={file};Foreign Keys=True;{mode}");
         result.Open();
@@ -187,5 +187,12 @@ public class DataBase
         command.Parameters.Add(new SqliteParameter("@name", name));
         command.Parameters.Add(new SqliteParameter("@value", value));
         command.ExecuteNonQuery();
+    }
+
+    public string? GetCurrentFile()
+    {
+        using SqliteConnection connection = Connect(true);
+        using SqliteCommand command = new(Resources.GetSql("getCurrentFile"), connection);
+        return command.ExecuteScalar()?.ToString();
     }
 }

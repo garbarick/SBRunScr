@@ -8,12 +8,13 @@ namespace SBRunScr.view.settings.files;
 public partial class FilesPanel : SettingsPanel
 {
     private readonly DataBase dataBase = new();
+    private readonly Settings settings = new();
 
     public FilesPanel()
     {
         InitializeComponent();
         UpdateLists();
-        SelectListById(dataBase.GetLongValue("lastList", 0));
+        SelectListById(settings.GetLastList());
     }
 
     public override void OnShow()
@@ -174,7 +175,7 @@ public partial class FilesPanel : SettingsPanel
             return;
         }
         ListItemView list = (ListItemView)Lists.Items[Lists.SelectedIndices[0]];
-        dataBase.SetLongValue("lastList", list.Item.Id);
+        settings.SetLastList(list.Item.Id);
         UpdateFiles(list);
         UpdateListCount(list);
         FilesButtons.Enabled = true;
@@ -183,7 +184,7 @@ public partial class FilesPanel : SettingsPanel
     private void UpdateFiles(ListItemView list)
     {
         Files.Items.Clear();
-        long lastFileId = dataBase.GetLongValue(list.Item.Id + ".lastFile", 0);
+        long lastFileId = settings.GetLastFile(list.Item.Id);
         int index = 0;
         foreach (FileItem item in dataBase.GetFiles(list.Item.Id))
         {
@@ -213,6 +214,6 @@ public partial class FilesPanel : SettingsPanel
         ListItemView list = (ListItemView)Lists.Items[Lists.SelectedIndices[0]];
         FileItemView item = (FileItemView)Files.Items[Files.SelectedIndices[0]];
         PreviewImage.Image = Image.FromFile(item.Item.Path);
-        dataBase.SetLongValue(list.Item.Id + ".lastFile", item.Item.Id);
+        settings.SetLastFile(list.Item.Id, item.Item.Id);
     }
 }

@@ -1,11 +1,37 @@
 using System.Reflection;
 using SBRunScr.form;
+using SBRunScr.user;
 
 namespace SBRunScr;
 
-static class SBRunScr
+public class SBRunScr
 {
-    internal static Assembly AssemblyResolveHandler(object? sender, ResolveEventArgs args)
+    [STAThread]
+    public static void Main()
+    {
+        new SBRunScr().Start();
+    }
+
+    private void Start()
+    {
+        Mutex? mutex = CreateMutex();
+        if (mutex == null)
+        {
+            return;
+        }
+        try
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveHandler;
+            ApplicationConfiguration.Initialize();
+            Application.Run(new MainFrom());
+        }
+        finally
+        {
+            mutex.Close();
+        }
+    }
+
+    private Assembly AssemblyResolveHandler(object? sender, ResolveEventArgs args)
     {
         AssemblyName assemblyName = new(args.Name);
         string path = Path.Combine(
@@ -15,11 +41,15 @@ static class SBRunScr
         return Assembly.LoadFrom(path);
     }
 
-    [STAThread]
-    static void Main()
+    private Mutex? CreateMutex()
     {
-        AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveHandler;
-        ApplicationConfiguration.Initialize();
-        Application.Run(new MainFrom());
+        bool created;
+        Mutex mutex = new(true, new User().AppName(), out created);
+        if (!created)
+        {
+            mutex.Close();
+            return null;
+        }
+        return mutex;
     }
 }

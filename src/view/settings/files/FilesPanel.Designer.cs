@@ -58,7 +58,7 @@ partial class FilesPanel
     private void ListViewClientSizeChanged(object sender, EventArgs args)
     {
         ListView list = (ListView) sender;
-        int width = list.Width - 30;
+        int width = list.Width - 4 - SystemInformation.VerticalScrollBarWidth;
         for (int i = 1; i < list.Columns.Count; i++)
         {
             width -= list.Columns[i].Width;
