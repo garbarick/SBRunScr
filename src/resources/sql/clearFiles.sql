@@ -1,1 +1,2 @@
-delete from files where list_id = @list_id
+delete from files
+ where list_id = @list_id

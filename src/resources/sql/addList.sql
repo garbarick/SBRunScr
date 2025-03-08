@@ -1,2 +1,3 @@
-insert into lists(name) values(@name);
-select last_insert_rowid();
+insert or ignore into
+ lists (name)
+values (@name) returning id

@@ -1,1 +1,2 @@
-delete from lists where id = @id
+delete from lists
+ where id = @id

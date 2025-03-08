@@ -37,10 +37,8 @@ public partial class FilesPanel : SettingsPanel
             long id = dataBase.AddList(name);
             if (id > 0)
             {
-                ListItem list = new(id, name, 0);
-                ListItemView itemView = new(list);
-                Lists.Items.Add(itemView);
-                SelectListByIndex(Lists.Items.Count - 1);
+                UpdateLists();
+                SelectListById(id);
             }
         }
     }
