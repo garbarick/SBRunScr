@@ -217,4 +217,12 @@ public class DataBase
         using SqliteCommand command = new(Resources.GetSql("getPreviousFileId"), connection);
         return Convert.ToInt64(command.ExecuteScalar() ?? 0);
     }
+
+    public void ExcludeFile(long id)
+    {
+        using SqliteConnection connection = Connect();
+        using SqliteCommand command = new(Resources.GetSql("excludeFile"), connection);
+        command.Parameters.Add(new SqliteParameter("@id", id));
+        command.ExecuteNonQuery();
+    }
 }

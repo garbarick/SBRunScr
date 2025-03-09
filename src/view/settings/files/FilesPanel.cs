@@ -79,7 +79,7 @@ public partial class FilesPanel : SettingsPanel
             if (dataBase.DeleteList(list.Item.Id))
             {
                 Lists.Items.RemoveAt(index);
-                index = index == Lists.Items.Count ? index - 1 : 0;
+                index = index == Lists.Items.Count ? index - 1 : index;
                 SelectListByIndex(index);
             }
         }
@@ -253,5 +253,26 @@ public partial class FilesPanel : SettingsPanel
                 break;
             }
         }
+    }
+
+    private void ExcludeFile(object sender, EventArgs args)
+    {
+        if (Lists.SelectedIndices.Count == 0 || Files.SelectedIndices.Count == 0)
+        {
+            return;
+        }
+        int index = Files.SelectedIndices[0];
+        FileItemView item = (FileItemView)Files.Items[index];
+
+        dataBase.ExcludeFile(item.Item.Id);
+        Files.Items.RemoveAt(index);
+        
+        index = index == Files.Items.Count ? index - 1 : index;
+        item = (FileItemView)Files.Items[index];
+        item.Selected = true;
+        Files.EnsureVisible(index);
+
+        ListItemView list = (ListItemView)Lists.Items[Lists.SelectedIndices[0]];
+        UpdateListCount(list);
     }
 }

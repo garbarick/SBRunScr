@@ -127,6 +127,7 @@ partial class FilesPanel
     {
         Panel result = new();
         result.Dock = DockStyle.Fill;
+        result.Controls.Add(CreateButton("excludeFile", new EventHandler(ExcludeFile)));
         result.Controls.Add(CreateButton("clearFiles", new EventHandler(ClearFiles)));
         result.Controls.Add(CreateButton("excludeFolder", new EventHandler(ExcludeFolder)));
         result.Controls.Add(CreateButton("addFolder", new EventHandler(AddFolder)));

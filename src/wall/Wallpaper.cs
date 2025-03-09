@@ -22,14 +22,21 @@ public class WallPaper
     protected string Create(string filePath)
     {
         int width = SystemInformation.VirtualScreen.Width;
-        int heigth = SystemInformation.VirtualScreen.Height;
+        int height = SystemInformation.VirtualScreen.Height;
 
         Image image = Image.FromFile(filePath);
-        Image wallImage = new Bitmap(width, heigth);
+
+        float coef = Math.Max((float)width / image.Width, (float)height / image.Height);
+        int Width = (int)(coef * image.Width);
+        int Height = (int)(coef * image.Height);
+        int Left = (width - Width) / 2;
+        int Top = (height - Height) / 2;
+
+        Image wallImage = new Bitmap(width, height);
         Graphics graphic = Graphics.FromImage(wallImage);
 
         graphic.Clear(Color.Black);
-        graphic.DrawImage(image, 0, 0, width, heigth);
+        graphic.DrawImage(image, Left, Top, Width, Height);
 
         string result = new User().UserFile("wallpaper.bmp");
         wallImage.Save(result, ImageFormat.Bmp);

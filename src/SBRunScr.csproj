@@ -21,6 +21,7 @@
     <EmbeddedResource Include="resources/ico/clearFiles.ico"/>
     <EmbeddedResource Include="resources/ico/deleteList.ico"/>
     <EmbeddedResource Include="resources/ico/editList.ico"/>
+    <EmbeddedResource Include="resources/ico/excludeFile.ico"/>
     <EmbeddedResource Include="resources/ico/excludeFolder.ico"/>
     <EmbeddedResource Include="resources/ico/exit.ico"/>
     <EmbeddedResource Include="resources/ico/main.ico"/>
@@ -36,6 +37,7 @@
     <EmbeddedResource Include="resources/sql/createTableLists.sql"/>
     <EmbeddedResource Include="resources/sql/createTableSettings.sql"/>
     <EmbeddedResource Include="resources/sql/deleteList.sql"/>
+    <EmbeddedResource Include="resources/sql/excludeFile.sql"/>
     <EmbeddedResource Include="resources/sql/excludeFolder.sql"/>
     <EmbeddedResource Include="resources/sql/getCurrentFile.sql"/>
     <EmbeddedResource Include="resources/sql/getFiles.sql"/>
