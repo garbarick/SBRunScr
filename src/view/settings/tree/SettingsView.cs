@@ -28,4 +28,14 @@ public partial class SettingsView : TreeView
             current.Control.OnShow();
         }
     }
+
+    public void UpdateFilesList()
+    {
+        if (SelectedNode == null)
+        {
+            return;
+        }
+        SettingsNode current = (SettingsNode) SelectedNode;
+        current.Control.OnShow();
+    }
 }

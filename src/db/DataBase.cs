@@ -189,10 +189,32 @@ public class DataBase
         command.ExecuteNonQuery();
     }
 
-    public string? GetCurrentFile()
+    public FileItem? GetCurrentFile()
     {
         using SqliteConnection connection = Connect(true);
         using SqliteCommand command = new(Resources.GetSql("getCurrentFile"), connection);
-        return command.ExecuteScalar()?.ToString();
+        using SqliteDataReader reader = command.ExecuteReader();
+        if (reader.HasRows && reader.Read())
+        {
+            long id = reader.GetInt64(0);
+            string path = reader.GetString(1);
+            int type = reader.GetInt32(2);
+            return new FileItem(id, path, type);
+        }
+        return null;
+    }
+
+    public long GetNextFileId()
+    {
+        using SqliteConnection connection = Connect(true);
+        using SqliteCommand command = new(Resources.GetSql("getNextFileId"), connection);
+        return Convert.ToInt64(command.ExecuteScalar() ?? 0);
+    }
+
+    public long GetPreviousFileId()
+    {
+        using SqliteConnection connection = Connect(true);
+        using SqliteCommand command = new(Resources.GetSql("getPreviousFileId"), connection);
+        return Convert.ToInt64(command.ExecuteScalar() ?? 0);
     }
 }

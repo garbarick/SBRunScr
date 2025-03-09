@@ -1,23 +1,36 @@
 using SBRunScr.db;
+using SBRunScr.item;
+using SBRunScr.tray;
 using SBRunScr.wall;
 
 namespace SBRunScr.form;
 
 public partial class MainFrom : Form
 {
-    private readonly DataBase dataBase = new();
+    private readonly Settings settings = new();
 
     public MainFrom()
     {
         InitializeComponent();
     }
 
-    private void UpdateWallpaper(object sender, EventArgs e)
+    private void UpdateWallpaper(object sender, EventArgs args)
     {
-        string? filePath = dataBase.GetCurrentFile();
-        if (filePath != null)
+        FileItem? fileItem = settings.GetCurrentFile();
+        if (fileItem != null)
         {
-            new WallPaper().Set(filePath);
+            new WallPaper().Set(fileItem.Path);
         }
+    }
+
+    private void ShowMenu(object sender, EventArgs args)
+    {
+        Button button = (Button)sender;
+        SBContext.Current?.Menu?.Show(button.PointToScreen(button.Location));
+    }
+
+    public void UpdateFilesList()
+    {
+        SettingsView.UpdateFilesList();
     }
 }

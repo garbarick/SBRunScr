@@ -16,29 +16,35 @@
    </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="resources/ico/main.ico"/>
-    <EmbeddedResource Include="resources/ico/updateWallpaper.ico"/>
+    <EmbeddedResource Include="resources/ico/addFolder.ico"/>
     <EmbeddedResource Include="resources/ico/addList.ico"/>
+    <EmbeddedResource Include="resources/ico/clearFiles.ico"/>
     <EmbeddedResource Include="resources/ico/deleteList.ico"/>
     <EmbeddedResource Include="resources/ico/editList.ico"/>
-    <EmbeddedResource Include="resources/ico/addFolder.ico"/>
-    <EmbeddedResource Include="resources/ico/clearFiles.ico"/>
     <EmbeddedResource Include="resources/ico/excludeFolder.ico"/>
+    <EmbeddedResource Include="resources/ico/exit.ico"/>
+    <EmbeddedResource Include="resources/ico/main.ico"/>
+    <EmbeddedResource Include="resources/ico/next.ico"/>
+    <EmbeddedResource Include="resources/ico/previous.ico"/>
+    <EmbeddedResource Include="resources/ico/settings.ico"/>
+    <EmbeddedResource Include="resources/ico/updateWallpaper.ico"/>
 
-    <EmbeddedResource Include="resources/sql/createTableLists.sql"/>
-    <EmbeddedResource Include="resources/sql/createTableFiles.sql"/>
-    <EmbeddedResource Include="resources/sql/createTableSettings.sql"/>
-    <EmbeddedResource Include="resources/sql/addList.sql"/>
-    <EmbeddedResource Include="resources/sql/getLists.sql"/>
-    <EmbeddedResource Include="resources/sql/renameList.sql"/>
-    <EmbeddedResource Include="resources/sql/deleteList.sql"/>
     <EmbeddedResource Include="resources/sql/addFile.sql"/>
-    <EmbeddedResource Include="resources/sql/getFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/addList.sql"/>
     <EmbeddedResource Include="resources/sql/clearFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/createTableFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/createTableLists.sql"/>
+    <EmbeddedResource Include="resources/sql/createTableSettings.sql"/>
+    <EmbeddedResource Include="resources/sql/deleteList.sql"/>
     <EmbeddedResource Include="resources/sql/excludeFolder.sql"/>
-    <EmbeddedResource Include="resources/sql/getValue.sql"/>
-    <EmbeddedResource Include="resources/sql/setValue.sql"/>
     <EmbeddedResource Include="resources/sql/getCurrentFile.sql"/>
+    <EmbeddedResource Include="resources/sql/getFiles.sql"/>
+    <EmbeddedResource Include="resources/sql/getLists.sql"/>
+    <EmbeddedResource Include="resources/sql/getNextFileId.sql"/>
+    <EmbeddedResource Include="resources/sql/getPreviousFileId.sql"/>
+    <EmbeddedResource Include="resources/sql/getValue.sql"/>
+    <EmbeddedResource Include="resources/sql/renameList.sql"/>
+    <EmbeddedResource Include="resources/sql/setValue.sql"/>
   </ItemGroup>
 
   <ItemGroup>

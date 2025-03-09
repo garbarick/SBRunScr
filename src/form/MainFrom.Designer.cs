@@ -11,6 +11,8 @@ partial class MainFrom
     private Control SettingsPanel;
     private SplitContainer MainSplitter;
 
+    private SettingsView SettingsView;
+
     protected override void Dispose(bool disposing)
     {
         if (disposing && (Components != null))
@@ -27,6 +29,7 @@ partial class MainFrom
         ClientSize = MinimumSize = new Size(800, 500);
         Text = "SBRunScr";
         Icon = Resources.GetIcon("main");
+        Resize += new EventHandler(OnResizeHandler);
 
         SettingsPanel = CreateSettingsPanel();
         MainSplitter = CreateMainSpliter();
@@ -35,6 +38,14 @@ partial class MainFrom
 
         Shown += new EventHandler(OnShow);
         CenterToScreen();
+    }
+
+    private void OnResizeHandler(object sender, EventArgs e)
+    {
+        if (WindowState == FormWindowState.Minimized)
+        {
+            Close();
+        }
     }
 
     private void OnShow(object sender, EventArgs e)
@@ -47,7 +58,7 @@ partial class MainFrom
         SplitContainer result = new();
         result.FixedPanel = FixedPanel.Panel1;
         result.Dock = DockStyle.Fill;
-        result.Panel1.Controls.Add(new SettingsView(SettingsPanel));
+        result.Panel1.Controls.Add(SettingsView = new SettingsView(SettingsPanel));
         result.Panel1MinSize = 160;
         result.Panel2.Controls.Add(CreateRightPanel());
         result.SplitterDistance = 400;
@@ -80,6 +91,7 @@ partial class MainFrom
         Panel result = new();
         result.Dock = DockStyle.Fill;
         result.Controls.Add(CreateUpdateButton());
+        result.Controls.Add(CreateMenuButton());
         return result;
     }
 
@@ -89,6 +101,15 @@ partial class MainFrom
         result.Image = Resources.GetIconAsImage("updateWallpaper", new Size(48, 26));
         result.Dock = DockStyle.Left;
         result.Click += new EventHandler(UpdateWallpaper);
+        return result;
+    }
+
+    private Control CreateMenuButton()
+    {
+        Button result = new();
+        result.Text = "Menu";
+        result.Dock = DockStyle.Left;
+        result.Click += new EventHandler(ShowMenu);
         return result;
     }
 }

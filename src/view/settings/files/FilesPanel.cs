@@ -14,11 +14,14 @@ public partial class FilesPanel : SettingsPanel
     {
         InitializeComponent();
         UpdateLists();
-        SelectListById(settings.GetLastList());
     }
 
     public override void OnShow()
     {
+        long listId = settings.GetLastList();
+        SelectListById(listId);
+        SelectFileById(settings.GetLastFile(listId));
+
         if (Lists.SelectedIndices.Count > 0)
         {
             Lists.EnsureVisible(Lists.SelectedIndices[0]);
@@ -155,6 +158,14 @@ public partial class FilesPanel : SettingsPanel
         {
             return;
         }
+        if (Lists.SelectedIndices.Count > 0)
+        {
+            ListItemView list = (ListItemView)Lists.Items[Lists.SelectedIndices[0]];
+            if (id == list.Item.Id)
+            {
+                return;
+            }
+        }
         for (int i = 0; i < Lists.Items.Count; i++)
         {
             ListItemView item = (ListItemView)Lists.Items[i];
@@ -215,5 +226,32 @@ public partial class FilesPanel : SettingsPanel
         FileItemView item = (FileItemView)Files.Items[Files.SelectedIndices[0]];
         PreviewImage.Image = Image.FromFile(item.Item.Path);
         settings.SetLastFile(list.Item.Id, item.Item.Id);
+    }
+
+    private void SelectFileById(long fileId)
+    {
+        if (fileId == 0)
+        {
+            return;
+        }
+        if (Files.SelectedIndices.Count > 0)
+        {
+            FileItemView item = (FileItemView)Files.Items[Files.SelectedIndices[0]];
+            if (fileId == item.Item.Id)
+            {
+                return;
+            }
+        }
+        Files.SelectedIndices.Clear();
+        for (int i = 0; i < Files.Items.Count; i++)
+        {
+            FileItemView item = (FileItemView)Files.Items[i];
+            if (fileId == item.Item.Id)
+            {
+                item.Selected = true;
+                Files.EnsureVisible(i);
+                break;
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 using System.Reflection;
-using SBRunScr.form;
 using SBRunScr.user;
+using SBRunScr.tray;
 
 namespace SBRunScr;
 
@@ -23,7 +23,7 @@ public class SBRunScr
         {
             AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveHandler;
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainFrom());
+            Application.Run(new SBContext());
         }
         finally
         {
