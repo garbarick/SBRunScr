@@ -24,8 +24,13 @@ partial class InputBox
         panel.Controls.Add(textBox, 0, 1);
         panel.SetColumnSpan(textBox, 4);
 
-        panel.Controls.Add(createOk(), 1, 2);
-        panel.Controls.Add(createCancel(), 2, 2);
+        Button ok = createOk();
+        AcceptButton = ok;
+        Button cancel = createCancel();
+        CancelButton = cancel;
+
+        panel.Controls.Add(ok, 1, 2);
+        panel.Controls.Add(cancel, 2, 2);
 
         Controls.Add(panel);
         CenterToScreen();
@@ -67,7 +72,7 @@ partial class InputBox
     private Button createOk()
     {
         Button result = new();
-        result.Text = "&OK";
+        result.Text = "OK";
         result.Dock = DockStyle.Fill;
         result.DialogResult = DialogResult.OK;
         result.Click += new EventHandler(OkClick);
@@ -77,7 +82,7 @@ partial class InputBox
     private Button createCancel()
     {
         Button result = new();
-        result.Text = "&Cancel";
+        result.Text = "Cancel";
         result.Dock = DockStyle.Fill;
         result.DialogResult = DialogResult.Cancel;
         return result;

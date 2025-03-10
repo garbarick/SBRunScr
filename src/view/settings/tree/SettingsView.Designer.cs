@@ -1,5 +1,6 @@
 using SBRunScr.view.settings.files;
 using SBRunScr.view.settings.general;
+using SBRunScr.view.settings.keys;
 
 namespace SBRunScr.view.settings.tree;
 
@@ -23,6 +24,7 @@ partial class SettingsView
     {
         Nodes.Add(new SettingsNode(new GeneralPanel()));
         Nodes[0].Nodes.Add(new SettingsNode(new FilesPanel()));
+        Nodes[0].Nodes.Add(new SettingsNode(new KeysPanel()));
         foreach (SettingsNode node in Collect(Nodes))
         {
             SettingsPanel.Controls.Add(node.Control);

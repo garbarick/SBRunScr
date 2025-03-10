@@ -58,7 +58,7 @@ partial class MainFrom
         SplitContainer result = new();
         result.FixedPanel = FixedPanel.Panel1;
         result.Dock = DockStyle.Fill;
-        result.Panel1.Controls.Add(SettingsView = new SettingsView(SettingsPanel));
+        result.Panel1.Controls.Add(CreateLeftPanel());
         result.Panel1MinSize = 160;
         result.Panel2.Controls.Add(CreateRightPanel());
         result.SplitterDistance = 400;
@@ -70,6 +70,19 @@ partial class MainFrom
         Panel result = new();
         result.Dock = DockStyle.Fill;
         result.Padding = new Padding(2, 0, 4, 0);
+        return result;
+    }
+
+    private Control CreateLeftPanel()
+    {
+        TableLayoutPanel result = new();
+        result.Dock = DockStyle.Fill;
+        result.ColumnCount = 1;
+        result.RowCount = 2;
+        result.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+        result.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+        result.Controls.Add(SettingsView = new SettingsView(SettingsPanel));
+        result.Controls.Add(CreateMenuButton());
         return result;
     }
 
@@ -91,7 +104,6 @@ partial class MainFrom
         Panel result = new();
         result.Dock = DockStyle.Fill;
         result.Controls.Add(CreateUpdateButton());
-        result.Controls.Add(CreateMenuButton());
         return result;
     }
 
@@ -108,7 +120,7 @@ partial class MainFrom
     {
         Button result = new();
         result.Text = "Menu";
-        result.Dock = DockStyle.Left;
+        result.Dock = DockStyle.Fill;
         result.Click += new EventHandler(ShowMenu);
         return result;
     }

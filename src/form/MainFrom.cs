@@ -26,7 +26,8 @@ public partial class MainFrom : Form
     private void ShowMenu(object sender, EventArgs args)
     {
         Button button = (Button)sender;
-        SBContext.Current?.Menu?.Show(button.PointToScreen(button.Location));
+        MouseEventArgs mouseEvent = (MouseEventArgs)args;
+        SBContext.Current?.Menu?.Show(button.PointToScreen(mouseEvent.Location));
     }
 
     public void UpdateFilesList()
