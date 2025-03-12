@@ -1,18 +1,21 @@
 using System.Drawing.Text;
+using SBRunScr.item;
 
 namespace SBRunScr.view.settings.keys;
 
 partial class KeysPanel
 {
+    private TableLayoutPanel mainPanel;
+
     private void InitializeComponent()
     {
         Text = "Keys";
         Dock = DockStyle.Fill;
 
-        Controls.Add(CreateMainLayout());
+        Controls.Add(mainPanel = CreateMainLayout());
     }
 
-    private Control CreateMainLayout()
+    private TableLayoutPanel CreateMainLayout()
     {
         TableLayoutPanel result = new();
         result.Dock = DockStyle.Fill;
@@ -24,8 +27,8 @@ partial class KeysPanel
         result.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
         result.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
         result.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        result.Controls.AddRange(CreateHotKeyRow("Previous"));
-        result.Controls.AddRange(CreateHotKeyRow("Next"));
+        result.Controls.AddRange(CreateHotKeyRow(Constants.Previous));
+        result.Controls.AddRange(CreateHotKeyRow(Constants.Next));
         return result;
     }
 
@@ -39,9 +42,9 @@ partial class KeysPanel
         win.Text = "Win +";
         win.Dock = DockStyle.Right;
 
-        HotKeyBox text = new();
-        text.Dock = DockStyle.Fill;
+        HotKeyBox hotKeyBox = new();
+        hotKeyBox.Dock = DockStyle.Fill;
 
-        return new Control[] { title, win, text };
+        return new Control[] { title, win, hotKeyBox };
     }
 }

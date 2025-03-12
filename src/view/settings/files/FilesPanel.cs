@@ -34,7 +34,7 @@ public partial class FilesPanel : SettingsPanel
 
     private void AddList(object sender, EventArgs args)
     {
-        InputBox dialog = new("New list", "Name", "");
+        InputBox dialog = new("New list", "Name", string.Empty);
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             string name = dialog.Result();
@@ -266,7 +266,7 @@ public partial class FilesPanel : SettingsPanel
 
         dataBase.ExcludeFile(item.Item.Id);
         Files.Items.RemoveAt(index);
-        
+
         index = index == Files.Items.Count ? index - 1 : index;
         item = (FileItemView)Files.Items[index];
         item.Selected = true;

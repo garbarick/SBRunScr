@@ -22,7 +22,7 @@ public class DataBase
     private SqliteConnection Connect(bool readOnly = false)
     {
         string file = new User().UserFile("settings.db");
-        string mode = readOnly ? "Mode=ReadOnly;" : "";
+        string mode = readOnly ? "Mode=ReadOnly;" : string.Empty;
         SqliteConnection result = new($"Data Source={file};Foreign Keys=True;{mode}");
         result.Open();
         return result;
@@ -183,16 +183,28 @@ public class DataBase
     public void SetStringValue(string name, string value)
     {
         using SqliteConnection connection = Connect();
-        using SqliteCommand command = new(Resources.GetSql("setValue"), connection);
-        command.Parameters.Add(new SqliteParameter("@name", name));
-        command.Parameters.Add(new SqliteParameter("@value", value));
+        using SqliteCommand command = new();
+        command.Connection = connection;
+        if (string.IsNullOrEmpty(value))
+        {
+            command.CommandText = Resources.GetSql("deleteValue");
+            command.Parameters.Add(new SqliteParameter("@name", name));
+        }
+        else
+        {
+            command.CommandText = Resources.GetSql("setValue");
+            command.Parameters.Add(new SqliteParameter("@name", name));
+            command.Parameters.Add(new SqliteParameter("@value", value));
+        }
         command.ExecuteNonQuery();
     }
 
-    public FileItem? GetCurrentFile()
+    public FileItem? GetCurrentFile(string lastListKey, string lastFileKey)
     {
         using SqliteConnection connection = Connect(true);
         using SqliteCommand command = new(Resources.GetSql("getCurrentFile"), connection);
+        command.Parameters.Add(new SqliteParameter("@lastListKey", lastListKey));
+        command.Parameters.Add(new SqliteParameter("@lastFileKey", lastFileKey));
         using SqliteDataReader reader = command.ExecuteReader();
         if (reader.HasRows && reader.Read())
         {
@@ -204,17 +216,21 @@ public class DataBase
         return null;
     }
 
-    public long GetNextFileId()
+    public long GetNextFileId(string lastListKey, string lastFileKey)
     {
         using SqliteConnection connection = Connect(true);
         using SqliteCommand command = new(Resources.GetSql("getNextFileId"), connection);
+        command.Parameters.Add(new SqliteParameter("@lastListKey", lastListKey));
+        command.Parameters.Add(new SqliteParameter("@lastFileKey", lastFileKey));
         return Convert.ToInt64(command.ExecuteScalar() ?? 0);
     }
 
-    public long GetPreviousFileId()
+    public long GetPreviousFileId(string lastListKey, string lastFileKey)
     {
         using SqliteConnection connection = Connect(true);
         using SqliteCommand command = new(Resources.GetSql("getPreviousFileId"), connection);
+        command.Parameters.Add(new SqliteParameter("@lastListKey", lastListKey));
+        command.Parameters.Add(new SqliteParameter("@lastFileKey", lastFileKey));
         return Convert.ToInt64(command.ExecuteScalar() ?? 0);
     }
 

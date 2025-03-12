@@ -9,7 +9,7 @@ select p.id,
   from files p) p,
        settings l,
        settings f
- where l.name = 'lastList'
+ where l.name = @lastListKey
    and p.list_id = l.value
-   and f.name = p.list_id || '.lastFile'
+   and f.name = p.list_id || '.' || @lastFileKey
    and f.value = p.id

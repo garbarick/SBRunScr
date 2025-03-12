@@ -4,7 +4,16 @@ namespace SBRunScr.view.settings.tree;
 
 public class SettingsPanel : GroupBox
 {
+    public SettingsPanel()
+    {
+        Visible = false;
+    }
+
     public virtual void OnShow()
+    {
+    }
+
+    public virtual void OnHide()
     {
     }
 

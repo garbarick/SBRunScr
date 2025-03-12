@@ -4,7 +4,7 @@ select p.id,
   from settings l,
        settings f,
        files p
- where l.name = 'lastList'
-   and f.name = l.value || '.lastFile'
+ where l.name = @lastListKey
+   and f.name = l.value || '.' || @lastFileKey
    and p.list_id = l.value
    and p.id = f.value

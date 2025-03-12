@@ -10,18 +10,22 @@ public partial class SettingsView : TreeView
         InitializeComponent();
     }
 
-    private void BeforeCollapse_(object sender, TreeViewCancelEventArgs e)
+    private void BeforeCollapse_(object sender, TreeViewCancelEventArgs args)
     {
-        e.Cancel = true;
+        args.Cancel = true;
     }
 
-    private void BeforeSelect_(object sender, TreeViewCancelEventArgs e)
+    private void BeforeSelect_(object sender, TreeViewCancelEventArgs args)
     {
         foreach (SettingsNode node in Collect(Nodes))
         {
-            node.Control.Visible = false;
+            if (node.Control.Visible)
+            {
+                node.Control.Visible = false;
+                node.Control.OnHide();
+            }
         }
-        if (e.Node is SettingsNode current)
+        if (args.Node is SettingsNode current)
         {
             current.Control.Visible = true;
             current.Control.Size = new(SettingsPanel.Width - 10, SettingsPanel.Height);
@@ -29,13 +33,23 @@ public partial class SettingsView : TreeView
         }
     }
 
-    public void UpdateFilesList()
+    public void OnShow()
     {
         if (SelectedNode == null)
         {
             return;
         }
-        SettingsNode current = (SettingsNode) SelectedNode;
+        SettingsNode current = (SettingsNode)SelectedNode;
         current.Control.OnShow();
+    }
+
+    public void OnHide()
+    {
+        if (SelectedNode == null)
+        {
+            return;
+        }
+        SettingsNode current = (SettingsNode)SelectedNode;
+        current.Control.OnHide();
     }
 }

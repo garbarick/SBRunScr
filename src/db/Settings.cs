@@ -8,27 +8,27 @@ public class Settings
 
     public long GetLastList()
     {
-        return dataBase.GetLongValue("lastList", 0);
+        return dataBase.GetLongValue(Constants.LastList, 0);
     }
 
     public void SetLastList(long id)
     {
-        dataBase.SetLongValue("lastList", id);
+        dataBase.SetLongValue(Constants.LastList, id);
     }
 
     public long GetLastFile(long listId)
     {
-        return dataBase.GetLongValue(listId + ".lastFile", 0);
+        return dataBase.GetLongValue(listId + "." + Constants.LastFile, 0);
     }
 
     public void SetLastFile(long listId, long fileId)
     {
-        dataBase.SetLongValue(listId + ".lastFile", fileId);
+        dataBase.SetLongValue(listId + "." + Constants.LastFile, fileId);
     }
 
     public FileItem? GetCurrentFile()
     {
-        return dataBase.GetCurrentFile();
+        return dataBase.GetCurrentFile(Constants.LastList, Constants.LastFile);
     }
 
     public void SetLastFile(long fileId)
@@ -47,11 +47,21 @@ public class Settings
 
     public void SetNextFile()
     {
-        SetLastFile(dataBase.GetNextFileId());
+        SetLastFile(dataBase.GetNextFileId(Constants.LastList, Constants.LastFile));
     }
 
     public void SetPreviousFile()
     {
-        SetLastFile(dataBase.GetPreviousFileId());
+        SetLastFile(dataBase.GetPreviousFileId(Constants.LastList, Constants.LastFile));
+    }
+
+    public void SetHotKey(string name, HotKey hotKey)
+    {
+        dataBase.SetStringValue(name + "." + Constants.HotKey, hotKey.ToString());
+    }
+
+    public HotKey GetHotKey(string name)
+    {
+        return new HotKey(dataBase.GetStringValue(name + "." + Constants.HotKey, string.Empty));
     }
 }

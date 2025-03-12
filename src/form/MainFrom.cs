@@ -30,8 +30,22 @@ public partial class MainFrom : Form
         SBContext.Current?.Menu?.Show(button.PointToScreen(mouseEvent.Location));
     }
 
-    public void UpdateFilesList()
+    public void OnShow()
     {
-        SettingsView.UpdateFilesList();
+        SettingsView.OnShow();
+    }
+
+    private void OnResizeHandler(object sender, EventArgs args)
+    {
+        if (WindowState == FormWindowState.Minimized)
+        {
+            SettingsView.OnHide();
+            Close();
+        }
+    }
+
+    private void OnClose(object sender, EventArgs e)
+    {
+        SettingsView.OnHide();
     }
 }

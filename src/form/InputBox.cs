@@ -10,7 +10,7 @@ public partial class InputBox : Form
         InitializeComponent(title, message, text);
     }
 
-    private void OkClick(object sender, EventArgs e)
+    private void OkClick(object sender, EventArgs args)
     {
         result = textBox.Text;
     }

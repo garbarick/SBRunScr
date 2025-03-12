@@ -37,6 +37,7 @@
     <EmbeddedResource Include="resources/sql/createTableLists.sql"/>
     <EmbeddedResource Include="resources/sql/createTableSettings.sql"/>
     <EmbeddedResource Include="resources/sql/deleteList.sql"/>
+    <EmbeddedResource Include="resources/sql/deleteValue.sql"/>
     <EmbeddedResource Include="resources/sql/excludeFile.sql"/>
     <EmbeddedResource Include="resources/sql/excludeFolder.sql"/>
     <EmbeddedResource Include="resources/sql/getCurrentFile.sql"/>

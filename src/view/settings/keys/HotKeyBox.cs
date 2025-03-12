@@ -1,3 +1,6 @@
+using SBRunScr.item;
+using System.ComponentModel;
+
 namespace SBRunScr.view.settings.keys;
 
 public class HotKeyBox : TextBox
@@ -5,8 +8,9 @@ public class HotKeyBox : TextBox
     private static readonly string UNDEFINED = Keys.None.ToString();
     private static readonly Keys[] IGNORE_KEYS = [Keys.None, Keys.LWin, Keys.RWin, Keys.ShiftKey, Keys.Menu, Keys.ControlKey];
     private static readonly Keys[] MODIFS = [Keys.Alt, Keys.Shift, Keys.Control];
-    public Keys hotkey = Keys.None;
-    public Keys modifiers = Keys.None;
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public HotKey Hotkey { get; set; } = new HotKey();
 
     public HotKeyBox()
     {
@@ -17,26 +21,6 @@ public class HotKeyBox : TextBox
         KeyUp += new KeyEventHandler(KeyUpHandle);
     }
 
-    public Keys GetHotKey()
-    {
-        return hotkey;
-    }
-
-    public void SetHotKey(Keys hotkey)
-    {
-        this.hotkey = hotkey;
-    }
-
-    public Keys GetModifiers()
-    {
-        return modifiers;
-    }
-
-    public void SetModifiers(Keys modifiers)
-    {
-        this.modifiers = modifiers;
-    }
-
     private void KeyPressHandle(object? sender, KeyPressEventArgs args)
     {
         args.Handled = true;
@@ -44,7 +28,7 @@ public class HotKeyBox : TextBox
 
     private void KeyUpHandle(object? sender, KeyEventArgs args)
     {
-        if (hotkey == Keys.None && ModifierKeys == Keys.None)
+        if (Hotkey.Key == Keys.None && ModifierKeys == Keys.None)
         {
             ResetHotkey();
             return;
@@ -60,35 +44,40 @@ public class HotKeyBox : TextBox
         }
         else
         {
-            modifiers = args.Modifiers;
-            hotkey = args.KeyCode;
+            Hotkey.Key = args.KeyCode;
+            Hotkey.Modifiers = args.Modifiers;
             Redraw();
         }
     }
 
     private void ResetHotkey()
     {
-        hotkey = Keys.None;
-        modifiers = Keys.None;
+        Hotkey.Key = Keys.None;
+        Hotkey.Modifiers = Keys.None;
         Redraw();
     }
 
-    private void Redraw()
+    public void Redraw()
     {
-        if (IGNORE_KEYS.Contains(hotkey))
+        if (IGNORE_KEYS.Contains(Hotkey.Key))
         {
-            hotkey = Keys.None;
-            Text = UNDEFINED;
-            return;
+            Hotkey.Key = Keys.None;
         }
-        Text = "";
+        Text = string.Empty;
         foreach (Keys key in MODIFS)
         {
-            if (modifiers.HasFlag(key))
+            if (Hotkey.Modifiers.HasFlag(key))
             {
                 Text += key + " + ";
             }
         }
-        Text += hotkey;
+        if (Hotkey.Key != Keys.None)
+        {
+            Text += Hotkey.Key;
+        }
+        if (string.IsNullOrEmpty(Text))
+        {
+            Text = UNDEFINED;
+        }
     }
 }

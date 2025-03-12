@@ -10,7 +10,6 @@ partial class MainFrom
     private System.ComponentModel.IContainer Components;
     private Control SettingsPanel;
     private SplitContainer MainSplitter;
-
     private SettingsView SettingsView;
 
     protected override void Dispose(bool disposing)
@@ -37,18 +36,11 @@ partial class MainFrom
         Controls.Add(MainSplitter);
 
         Shown += new EventHandler(OnShow);
+        FormClosing += new FormClosingEventHandler(OnClose);
         CenterToScreen();
     }
 
-    private void OnResizeHandler(object sender, EventArgs e)
-    {
-        if (WindowState == FormWindowState.Minimized)
-        {
-            Close();
-        }
-    }
-
-    private void OnShow(object sender, EventArgs e)
+    private void OnShow(object sender, EventArgs args)
     {
         MainSplitter.SplitterDistance = 160;
     }
