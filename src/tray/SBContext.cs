@@ -106,9 +106,11 @@ public class SBContext : ApplicationContext
 
     public void RegisterHotKeys()
     {
+        Console.WriteLine("RegisterHotKeys");
     }
 
     public void UnRegisterHotKeys()
     {
+        Console.WriteLine("UnRegisterHotKeys");
     }
 }

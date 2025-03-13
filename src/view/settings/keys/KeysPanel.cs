@@ -17,28 +17,21 @@ public partial class KeysPanel : SettingsPanel
     public override void OnShow()
     {
         SBContext.Current?.UnRegisterHotKeys();
-        for (int i = 0; i < mainPanel.Controls.Count; i +=3)
+        for (int i = 0; i < mainPanel.Controls.Count; i++)
         {
-            Label label = (Label) mainPanel.Controls[i];
-            CheckBox win = (CheckBox) mainPanel.Controls[i + 1];
-            HotKeyBox hotKeyBox = (HotKeyBox) mainPanel.Controls[i + 2];
-            HotKey hotKey = settings.GetHotKey(label.Text);
-            win.Checked = hotKey.Win;
-            hotKeyBox.Hotkey = hotKey;
-            hotKeyBox.Redraw();
+            HotKeyPanel control = (HotKeyPanel)mainPanel.Controls[i];
+            control.HotKey = settings.GetHotKey(control.Label.Text);
+            control.Redraw();
         }
     }
 
     public override void OnHide()
     {
-        for (int i = 0; i < mainPanel.Controls.Count; i +=3)
+        for (int i = 0; i < mainPanel.Controls.Count; i++)
         {
-            Label label = (Label) mainPanel.Controls[i];
-            CheckBox win = (CheckBox) mainPanel.Controls[i + 1];
-            HotKeyBox hotKeyBox = (HotKeyBox) mainPanel.Controls[i + 2];
-            HotKey hotKey = hotKeyBox.Hotkey;
-            hotKey.Win = win.Checked;
-            settings.SetHotKey(label.Text, hotKey);
+            HotKeyPanel control = (HotKeyPanel)mainPanel.Controls[i];
+            HotKey hotKey = control.HotKey;
+            settings.SetHotKey(control.Label.Text, hotKey);
         }
         SBContext.Current?.RegisterHotKeys();
     }
